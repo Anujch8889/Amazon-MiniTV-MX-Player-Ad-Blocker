@@ -1,0 +1,462 @@
+[
+  {
+    "id": 1,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||doubleclick.net",
+      "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image", "media", "other"]
+    }
+  },
+  {
+    "id": 2,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||googlesyndication.com",
+      "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image", "media", "other"]
+    }
+  },
+  {
+    "id": 3,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||googleadservices.com",
+      "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image", "media", "other"]
+    }
+  },
+  {
+    "id": 4,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||google-analytics.com",
+      "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image", "other"]
+    }
+  },
+  {
+    "id": 5,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||adservice.google.com",
+      "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image", "media", "other"]
+    }
+  },
+  {
+    "id": 6,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||amazon-adsystem.com",
+      "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image", "media", "other"]
+    }
+  },
+  {
+    "id": 7,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||aax.amazon",
+      "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image", "media", "other"]
+    }
+  },
+  {
+    "id": 8,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||fls-na.amazon",
+      "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image", "media", "other"]
+    }
+  },
+  {
+    "id": 9,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||aan.amazon",
+      "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image", "media", "other"]
+    }
+  },
+  {
+    "id": 10,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||unagi.amazon",
+      "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image", "media", "other"]
+    }
+  },
+  {
+    "id": 11,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||advertising.amazon",
+      "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image", "media", "other"]
+    }
+  },
+  {
+    "id": 12,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||ads.mxplayer",
+      "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image", "media", "other"]
+    }
+  },
+  {
+    "id": 13,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||imasdk.googleapis.com",
+      "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image", "media", "other"]
+    }
+  },
+  {
+    "id": 14,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||ima3.google.com",
+      "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image", "media", "other"]
+    }
+  },
+  {
+    "id": 15,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "*vast*tag*",
+      "initiatorDomains": ["mxplayer.in", "amazon.in", "amazonmxplayer.in", "amazonmxplayer.com"],
+      "resourceTypes": ["xmlhttprequest", "script", "other"]
+    }
+  },
+  {
+    "id": 16,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "*vpaid*",
+      "initiatorDomains": ["mxplayer.in", "amazon.in", "amazonmxplayer.in", "amazonmxplayer.com"],
+      "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "other"]
+    }
+  },
+  {
+    "id": 17,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||moat.com",
+      "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image", "other"]
+    }
+  },
+  {
+    "id": 18,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||scorecardresearch.com",
+      "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image", "other"]
+    }
+  },
+  {
+    "id": 19,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||serving-sys.com",
+      "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image", "media", "other"]
+    }
+  },
+  {
+    "id": 20,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||taboola.com",
+      "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image", "other"]
+    }
+  },
+  {
+    "id": 21,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||outbrain.com",
+      "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image", "other"]
+    }
+  },
+  {
+    "id": 22,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||criteo.com",
+      "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image", "other"]
+    }
+  },
+  {
+    "id": 23,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||pubmatic.com",
+      "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image", "other"]
+    }
+  },
+  {
+    "id": 24,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||rubiconproject.com",
+      "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image", "other"]
+    }
+  },
+  {
+    "id": 25,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||adcolony.com",
+      "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image", "media", "other"]
+    }
+  },
+  {
+    "id": 26,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||inmobi.com",
+      "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image", "media", "other"]
+    }
+  },
+  {
+    "id": 27,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||vungle.com",
+      "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image", "media", "other"]
+    }
+  },
+  {
+    "id": 28,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||appsflyer.com",
+      "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image", "other"]
+    }
+  },
+  {
+    "id": 29,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||branch.io",
+      "initiatorDomains": ["mxplayer.in", "amazon.in", "amazonmxplayer.in"],
+      "resourceTypes": ["script", "xmlhttprequest", "other"]
+    }
+  },
+  {
+    "id": 30,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||facebook.net/en_US/fbevents",
+      "resourceTypes": ["script"]
+    }
+  },
+  {
+    "id": 31,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "*prebid*",
+      "initiatorDomains": ["mxplayer.in", "amazon.in", "amazonmxplayer.in", "amazonmxplayer.com"],
+      "resourceTypes": ["script", "xmlhttprequest", "other"]
+    }
+  },
+  {
+    "id": 32,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||adskeeper.com",
+      "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image", "other"]
+    }
+  },
+  {
+    "id": 33,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||mgid.com",
+      "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image", "other"]
+    }
+  },
+  {
+    "id": 34,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||sharethrough.com",
+      "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image", "other"]
+    }
+  },
+  {
+    "id": 35,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "*&adType=*",
+      "initiatorDomains": ["mxplayer.in", "amazon.in", "amazonmxplayer.in", "amazonmxplayer.com"],
+      "resourceTypes": ["xmlhttprequest", "script", "media", "other"]
+    }
+  },
+  {
+    "id": 36,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "*ad_request*",
+      "initiatorDomains": ["mxplayer.in", "amazon.in", "amazonmxplayer.in", "amazonmxplayer.com"],
+      "resourceTypes": ["xmlhttprequest", "script", "other"]
+    }
+  },
+  {
+    "id": 37,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "*adserver*",
+      "initiatorDomains": ["mxplayer.in", "amazon.in", "amazonmxplayer.in", "amazonmxplayer.com"],
+      "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image", "media", "other"]
+    }
+  },
+  {
+    "id": 38,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||ad.doubleclick.net",
+      "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image", "media", "other"]
+    }
+  },
+  {
+    "id": 39,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||pagead2.googlesyndication.com",
+      "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image", "media", "other"]
+    }
+  },
+  {
+    "id": 40,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "*googleads*",
+      "initiatorDomains": ["mxplayer.in", "amazon.in", "amazonmxplayer.in", "amazonmxplayer.com"],
+      "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image", "media", "other"]
+    }
+  },
+  {
+    "id": 41,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||mxplay.tv/api/v*/ads",
+      "resourceTypes": ["xmlhttprequest", "script", "other"]
+    }
+  },
+  {
+    "id": 42,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "*ssai*",
+      "initiatorDomains": ["mxplayer.in", "amazonmxplayer.in", "amazonmxplayer.com"],
+      "resourceTypes": ["xmlhttprequest", "media", "other"]
+    }
+  },
+  {
+    "id": 43,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||medianet.com",
+      "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image", "other"]
+    }
+  },
+  {
+    "id": 44,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||hotjar.com",
+      "resourceTypes": ["script", "xmlhttprequest", "other"]
+    }
+  },
+  {
+    "id": 45,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||nr-data.net",
+      "resourceTypes": ["script", "xmlhttprequest", "other"]
+    }
+  },
+  {
+    "id": 46,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||mxplay.tv*ad_tag*",
+      "resourceTypes": ["xmlhttprequest", "script", "other"]
+    }
+  },
+  {
+    "id": 47,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "*companion*ad*",
+      "initiatorDomains": ["mxplayer.in", "amazon.in", "amazonmxplayer.in", "amazonmxplayer.com"],
+      "resourceTypes": ["xmlhttprequest", "script", "image", "other"]
+    }
+  },
+  {
+    "id": 48,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||quantserve.com",
+      "resourceTypes": ["script", "xmlhttprequest", "image", "other"]
+    }
+  },
+  {
+    "id": 49,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||adsrvr.org",
+      "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image", "other"]
+    }
+  },
+  {
+    "id": 50,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||s.amazon-adsystem.com",
+      "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image", "media", "other"]
+    }
+  }
+]

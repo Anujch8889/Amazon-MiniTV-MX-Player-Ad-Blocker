@@ -1,0 +1,183 @@
+/*
+ * CSS-based ad hiding rules for Amazon MiniTV and MX Player
+ * These selectors target known ad containers, overlays, and banners
+ */
+
+/* === Amazon MiniTV / Amazon Video Ad Selectors === */
+
+/* Video ad overlays */
+.atvwebplayersdk-ad-overlay,
+.atvwebplayersdk-adtimeindicator-text,
+.atvwebplayersdk-ad-timer,
+.adTimerText,
+[class*="adBreak"],
+[class*="ad-overlay"],
+[class*="ad-container"],
+[class*="ad-banner"],
+[class*="adOverlay"],
+[class*="adContainer"],
+[class*="adBanner"],
+[class*="AdSlot"],
+[class*="ad-slot"],
+[class*="videoAd"],
+[class*="video-ad"],
+[class*="preroll"],
+[class*="midroll"],
+[class*="postroll"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  max-height: 0 !important;
+  max-width: 0 !important;
+  overflow: hidden !important;
+  position: absolute !important;
+  z-index: -9999 !important;
+}
+
+/* Amazon specific ad markers */
+.av-ad-marker,
+.av-ad-badge,
+[data-ad-type],
+[data-ad-id],
+[data-ad-slot],
+[data-ad-unit],
+#ad-display,
+#ad-feedback,
+#ad-container,
+#videoAdContainer,
+.ad-feedback-container,
+.sponsored-content-container {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  width: 0 !important;
+  overflow: hidden !important;
+}
+
+/* Amazon "Sponsored" labels and ad promotions */
+[class*="sponsored"],
+[class*="Sponsored"],
+.a-ad,
+.a-ad-feedback,
+#ad-endcap-1,
+#ad-endcap-2,
+.celwidget[data-cel-widget*="ad-"],
+.s-result-item[data-component-type="s-ads"] {
+  display: none !important;
+}
+
+/* === MX Player Ad Selectors === */
+
+/* MX Player ad containers */
+.mx-ad-container,
+.mx-ad-overlay,
+.mx-ad-banner,
+.mx-player-ad,
+[class*="mx-ad"],
+[class*="mxAd"],
+[class*="ad-wrapper"],
+[class*="adWrapper"],
+[class*="ad_wrapper"],
+[id*="mx-ad"],
+[id*="ad-container"],
+[id*="adContainer"],
+[id*="google_ads"],
+[id*="ad-overlay"] {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  width: 0 !important;
+  overflow: hidden !important;
+  position: absolute !important;
+  z-index: -9999 !important;
+}
+
+/* Skip ad button - make it always visible and clickable if present */
+[class*="skip-ad"],
+[class*="skipAd"],
+[class*="skip_ad"],
+button[class*="skip"],
+.videoAdUiSkipButton,
+.ytp-ad-skip-button {
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+  pointer-events: all !important;
+  z-index: 999999 !important;
+}
+
+/* General ad iframes */
+iframe[src*="doubleclick"],
+iframe[src*="googlesyndication"],
+iframe[src*="amazon-adsystem"],
+iframe[id*="ad"],
+iframe[class*="ad-"],
+iframe[src*="ad."] {
+  display: none !important;
+  height: 0 !important;
+  width: 0 !important;
+}
+
+/* Overlay / popup ads */
+.overlay-ad,
+.popup-ad,
+.interstitial-ad,
+[class*="interstitial"],
+[class*="popupAd"],
+[class*="popup-ad"],
+[class*="overlay-ad"],
+[class*="overlayAd"],
+[class*="modal-ad"],
+[class*="modalAd"] {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* Banner ads */
+[class*="banner-ad"],
+[class*="bannerAd"],
+[class*="banner_ad"],
+[class*="leaderboard-ad"],
+[class*="rectangle-ad"],
+[class*="billboard-ad"] {
+  display: none !important;
+  height: 0 !important;
+}
+
+/* VAST/VPAID player wrappers */
+[class*="vast-"],
+[class*="vpaid-"],
+[id*="vast"],
+[id*="vpaid"],
+.ima-ad-container,
+#ima-ad-container,
+[class*="ima-"] {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  width: 0 !important;
+  overflow: hidden !important;
+}
+
+/* Google IMA SDK overlay */
+.videoAdUi,
+.videoAdUiBottomBar,
+.videoAdUiTopBar,
+.videoAdUiAttribution,
+#google_companion_ad,
+.GoogleActiveViewClass,
+.GoogleActiveViewElement {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+}
+
+/* Ensure ad video elements don't take space */
+video[src*="ad"], video[src*="vast"], video[src*="vpaid"] {
+  display: none !important;
+  height: 0 !important;
+  width: 0 !important;
+}

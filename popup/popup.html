@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ad Blocker</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <!-- Header -->
+    <div class="header">
+      <div class="header-glow"></div>
+      <div class="logo-section">
+        <div class="shield-icon" id="shield-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="shieldGrad" x1="0" y1="0" x2="32" y2="32">
+                <stop offset="0%" stop-color="#6C63FF"/>
+                <stop offset="100%" stop-color="#3B82F6"/>
+              </linearGradient>
+            </defs>
+            <path d="M16 2L4 8V16C4 23.2 9.1 29.8 16 31C22.9 29.8 28 23.2 28 16V8L16 2Z" fill="url(#shieldGrad)" opacity="0.9"/>
+            <path d="M16 2L4 8V16C4 23.2 9.1 29.8 16 31C22.9 29.8 28 23.2 28 16V8L16 2Z" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="0.5"/>
+            <circle cx="16" cy="15" r="6" fill="none" stroke="white" stroke-width="1.5" opacity="0.9"/>
+            <line x1="10" y1="9" x2="22" y2="21" stroke="#FF4757" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="title-section">
+          <h1 class="title">Ad Blocker</h1>
+          <p class="subtitle">Amazon MiniTV & MX Player</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toggle Section -->
+    <div class="toggle-section">
+      <div class="toggle-info">
+        <span class="toggle-label" id="status-text">Protection Active</span>
+        <span class="toggle-status active" id="status-badge">ON</span>
+      </div>
+      <label class="toggle-switch">
+        <input type="checkbox" id="toggle-input" checked>
+        <span class="toggle-slider"></span>
+      </label>
+    </div>
+
+    <!-- Stats Section -->
+    <div class="stats-container">
+      <div class="stat-card">
+        <div class="stat-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <circle cx="10" cy="10" r="8" stroke="#6C63FF" stroke-width="1.5" fill="none"/>
+            <line x1="6" y1="6" x2="14" y2="14" stroke="#FF4757" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="stat-info">
+          <span class="stat-value" id="session-count">0</span>
+          <span class="stat-label">This Session</span>
+        </div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-card">
+        <div class="stat-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M10 2L12.5 7.5L18 8L14 12L15 18L10 15L5 18L6 12L2 8L7.5 7.5L10 2Z" stroke="#F59E0B" stroke-width="1.5" fill="none"/>
+          </svg>
+        </div>
+        <div class="stat-info">
+          <span class="stat-value" id="total-count">0</span>
+          <span class="stat-label">Total Blocked</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Supported Sites -->
+    <div class="sites-section">
+      <h3 class="section-title">Protected Sites</h3>
+      <div class="site-list">
+        <div class="site-item">
+          <div class="site-dot active"></div>
+          <span class="site-name">amazon.in/minitv</span>
+          <span class="site-check">✓</span>
+        </div>
+        <div class="site-item">
+          <div class="site-dot active"></div>
+          <span class="site-name">mxplayer.in</span>
+          <span class="site-check">✓</span>
+        </div>
+        <div class="site-item">
+          <div class="site-dot active"></div>
+          <span class="site-name">amazonmxplayer.in</span>
+          <span class="site-check">✓</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <button class="reset-btn" id="reset-btn">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <path d="M7 1V4L10 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M7 4A5 5 0 1 1 2.34 6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+        Reset Stats
+      </button>
+      <span class="version">v1.0.0</span>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
