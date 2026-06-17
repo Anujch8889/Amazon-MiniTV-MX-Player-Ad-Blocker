@@ -9,6 +9,21 @@
 
   console.log('[AdBlocker] Page-level ad interceptor active');
 
+  // ========== MX PLAYER AD BLOCKER DETECTION BYPASS ==========
+  const isMXPlayerPage = window.location.hostname.includes('mxplayer.in') || 
+                         window.location.hostname.includes('amazonmxplayer');
+
+  if (isMXPlayerPage) {
+    // MX Player sets this flag when it detects ad blocking.
+    // Override it so it always returns false.
+    Object.defineProperty(window, 'mxAdBlockerEventTriggered', {
+      get: function () { return false; },
+      set: function () { /* silently ignore */ },
+      configurable: false
+    });
+    console.log('[AdBlocker] MX Player adblocker detection bypass installed');
+  }
+
   // ========== INTERCEPT GOOGLE IMA SDK ==========
   // The IMA SDK (Interactive Media Ads) is the most common video ad framework
 
@@ -29,7 +44,8 @@
 
   function neutralizeIMA(ima) {
     try {
-      // Override AdsManager to prevent ad playback
+      // Override AdsManager to skip ad playback but fire completion events
+      // so the video player transitions to content properly
       if (ima.AdsManager) {
         const origAdsManager = ima.AdsManager;
         ima.AdsManager = function () {
@@ -37,14 +53,33 @@
           // Override methods that trigger ad playback
           instance.start = function () {
             console.log('[AdBlocker] Blocked IMA ad start');
-            // Dispatch ad complete event
+            // Fire all necessary completion events so the player starts content
             try {
               if (instance.dispatchEvent) {
                 instance.dispatchEvent({ type: 'allAdsCompleted' });
               }
+              // Also fire contentResumeRequested for players that listen to it
+              if (instance.dispatchEvent) {
+                instance.dispatchEvent({ type: 'contentResumeRequested' });
+              }
             } catch (e) { }
+            
+            // Try to find and play the content video directly
+            setTimeout(() => {
+              try {
+                const videos = document.querySelectorAll('video');
+                videos.forEach(v => {
+                  if (v.paused && v.readyState >= 2) {
+                    v.play().catch(() => {});
+                  }
+                });
+              } catch (e) {}
+            }, 500);
           };
-          instance.init = function () { };
+          instance.init = function () {
+            console.log('[AdBlocker] Skipped IMA ad init');
+          };
+          // Allow destroy to work normally
           return instance;
         };
       }
@@ -66,7 +101,12 @@
           const origRequestAds = loader.requestAds;
           loader.requestAds = function () {
             console.log('[AdBlocker] Blocked IMA ad request');
-            // Don't actually request ads
+            // Fire error event so the player falls through to content
+            try {
+              if (loader.dispatchEvent) {
+                loader.dispatchEvent({ type: 'adError', error: { getMessage: () => 'Ad blocked' } });
+              }
+            } catch (e) {}
           };
           return loader;
         };
@@ -78,24 +118,47 @@
 
   // ========== INTERCEPT VAST/VPAID ==========
 
+  // Empty VMAP XML that satisfies the player's ad check without showing any ads
+  const EMPTY_VMAP_XML = '<?xml version="1.0" encoding="UTF-8"?><vmap:VMAP xmlns:vmap="http://www.iab.net/videosuite/vmap" version="1.0"></vmap:VMAP>';
+  const EMPTY_VAST_XML = '<?xml version="1.0" encoding="UTF-8"?><VAST version="3.0"></VAST>';
+
   // Block VAST XML parsing
   const origXHROpen = XMLHttpRequest.prototype.open;
+  const origXHRSend = XMLHttpRequest.prototype.send;
+
   XMLHttpRequest.prototype.open = function (method, url) {
     const urlStr = (url || '').toString().toLowerCase();
+    this._adBlockerUrl = urlStr;
+    this._adBlockerOrigUrl = url;
+
     const adPatterns = [
-      'vast', 'vpaid', 'doubleclick', 'googlesyndication',
+      'doubleclick', 'googlesyndication',
       'googleads', 'amazon-adsystem', 'adservice', 'adserver',
       'ad_request', 'ad_tag', 'prebid', 'imasdk',
       'moat.com', 'scorecardresearch', 'serving-sys',
       'adcolony', 'inmobi', 'pubmatic', 'criteo',
       'taboola', 'outbrain', 'ads.mxplayer',
-      'ssai', 'companion%20ad', 'companionad'
+      'companionad'
     ];
+
+    // For VMAP/VAST requests on MX Player, let them through but we'll intercept the response
+    const isVmapVast = urlStr.includes('vmap') || urlStr.includes('vast') || urlStr.includes('vpaid') || urlStr.includes('videoads');
+    if (isMXPlayerPage && isVmapVast) {
+      this._adBlockerFakeVmap = true;
+      console.log('[AdBlocker] Will fake VMAP/VAST response for:', urlStr.substring(0, 80));
+      return origXHROpen.call(this, method, 'data:text/xml,' + encodeURIComponent(isVmapVast && urlStr.includes('vmap') ? EMPTY_VMAP_XML : EMPTY_VAST_XML));
+    }
+
+    // On MX Player, allow critical player infrastructure XHR requests through
+    const mxAllowedXHR = ['doubleclick', 'googlesyndication', 'googleads', 
+      'amazon-adsystem', 'adservice', 'imasdk', 'prebid'];
 
     for (const pattern of adPatterns) {
       if (urlStr.includes(pattern)) {
+        if (isMXPlayerPage && mxAllowedXHR.includes(pattern)) {
+          continue;
+        }
         console.log('[AdBlocker] Blocked XHR ad request:', urlStr.substring(0, 80));
-        // Replace with dummy URL that will fail silently
         return origXHROpen.call(this, method, 'data:text/plain,blocked');
       }
     }
@@ -105,20 +168,62 @@
   // Block fetch requests to ad servers
   const origFetch = window.fetch;
   window.fetch = function (input, init) {
-    const url = (typeof input === 'string' ? input : (input && input.url) || '').toLowerCase();
+    let url = '';
+    if (typeof input === 'string') {
+      url = input;
+    } else if (input) {
+      if (input instanceof URL) {
+        url = input.toString();
+      } else if (typeof Request !== 'undefined' && input instanceof Request) {
+        url = input.url;
+      } else if (typeof input.url === 'string') {
+        url = input.url;
+      } else {
+        url = input.toString();
+      }
+    }
+    const urlStr = url.toLowerCase();
+
+    // For VMAP/VAST/videoads requests on MX Player, return a valid empty VMAP/VAST XML
+    // so the player thinks ads loaded successfully but there are no ads to play
+    if (isMXPlayerPage) {
+      if (urlStr.includes('videoads') || urlStr.includes('ads-vmap') || urlStr.includes('vmap')) {
+        console.log('[AdBlocker] Faking VMAP response for fetch:', urlStr.substring(0, 80));
+        return Promise.resolve(new Response(EMPTY_VMAP_XML, {
+          status: 200,
+          headers: { 'Content-Type': 'application/xml' }
+        }));
+      }
+      if (urlStr.includes('vast') || urlStr.includes('vpaid')) {
+        console.log('[AdBlocker] Faking VAST response for fetch:', urlStr.substring(0, 80));
+        return Promise.resolve(new Response(EMPTY_VAST_XML, {
+          status: 200,
+          headers: { 'Content-Type': 'application/xml' }
+        }));
+      }
+    }
+
     const adPatterns = [
-      'vast', 'vpaid', 'doubleclick', 'googlesyndication',
+      'doubleclick', 'googlesyndication',
       'googleads', 'amazon-adsystem', 'adservice', 'adserver',
       'ad_request', 'ad_tag', 'prebid', 'imasdk',
       'moat.com', 'scorecardresearch', 'serving-sys',
       'adcolony', 'inmobi', 'pubmatic', 'criteo',
       'taboola', 'outbrain', 'ads.mxplayer',
-      'ssai', 'companion'
+      'companion_ad', 'companionad'
     ];
 
+    // On MX Player, allow critical player infrastructure through fetch too
+    const mxAllowedPatterns = ['doubleclick', 'googlesyndication', 'googleads', 
+      'amazon-adsystem', 'adservice', 'imasdk', 'prebid', 'googleadservices'];
+
     for (const pattern of adPatterns) {
-      if (url.includes(pattern)) {
-        console.log('[AdBlocker] Blocked fetch ad request:', url.substring(0, 80));
+      if (urlStr.includes(pattern)) {
+        // On MX Player, let critical player scripts through
+        if (isMXPlayerPage && mxAllowedPatterns.includes(pattern)) {
+          continue;
+        }
+        console.log('[AdBlocker] Blocked fetch ad request:', urlStr.substring(0, 80));
         return Promise.resolve(new Response('', { status: 200 }));
       }
     }
@@ -129,14 +234,14 @@
 
   const origCreateElement = document.createElement.bind(document);
   document.createElement = function (tagName) {
-    const el = origCreateElement(tagName);
+    const el = origCreateElement.apply(this, arguments);
 
-    if (tagName.toLowerCase() === 'script') {
+    if (tagName && typeof tagName === 'string' && tagName.toLowerCase() === 'script') {
       const origSetSrc = Object.getOwnPropertyDescriptor(HTMLScriptElement.prototype, 'src');
       if (origSetSrc && origSetSrc.set) {
         Object.defineProperty(el, 'src', {
           set: function (val) {
-            const urlStr = (val || '').toLowerCase();
+            const urlStr = (val || '').toString().toLowerCase();
             const adScriptPatterns = [
               'imasdk.googleapis.com',
               'doubleclick.net',
@@ -157,6 +262,19 @@
 
             for (const pattern of adScriptPatterns) {
               if (urlStr.includes(pattern)) {
+                // On MX Player, allow critical player infrastructure scripts to load
+                // Our neutralizeIMA will intercept them at the JS level instead
+                if (isMXPlayerPage && (
+                  pattern === 'imasdk.googleapis.com' ||
+                  pattern === 'doubleclick.net' ||
+                  pattern === 'googlesyndication.com' ||
+                  pattern === 'amazon-adsystem.com' ||
+                  pattern === 'googleadservices.com' ||
+                  pattern === 'prebid'
+                )) {
+                  // Let it load - neutralizeIMA handles ad skipping
+                  break;
+                }
                 console.log('[AdBlocker] Blocked ad script load:', urlStr.substring(0, 80));
                 return; // Don't set the src
               }
@@ -172,6 +290,51 @@
     }
 
     return el;
+  };
+
+  // Intercept setAttribute for scripts
+  const origSetAttribute = Element.prototype.setAttribute;
+  Element.prototype.setAttribute = function (name, value) {
+    if (name && typeof name === 'string' && name.toLowerCase() === 'src' && 
+        this.tagName && typeof this.tagName === 'string' && this.tagName.toLowerCase() === 'script') {
+      const urlStr = (value || '').toString().toLowerCase();
+      const adScriptPatterns = [
+        'imasdk.googleapis.com',
+        'doubleclick.net',
+        'googlesyndication.com',
+        'amazon-adsystem.com',
+        'googleadservices.com',
+        'moat.com',
+        'scorecardresearch',
+        'serving-sys.com',
+        'adcolony.com',
+        'inmobi.com',
+        'pubmatic.com',
+        'criteo.com',
+        'taboola.com',
+        'outbrain.com',
+        'prebid'
+      ];
+
+      for (const pattern of adScriptPatterns) {
+        if (urlStr.includes(pattern)) {
+          // On MX Player, allow critical player infrastructure scripts to load
+          if (isMXPlayerPage && (
+            pattern === 'imasdk.googleapis.com' ||
+            pattern === 'doubleclick.net' ||
+            pattern === 'googlesyndication.com' ||
+            pattern === 'amazon-adsystem.com' ||
+            pattern === 'googleadservices.com' ||
+            pattern === 'prebid'
+          )) {
+            break;
+          }
+          console.log('[AdBlocker] Blocked ad script setAttribute src:', urlStr.substring(0, 80));
+          return;
+        }
+      }
+    }
+    return origSetAttribute.apply(this, arguments);
   };
 
   // ========== INTERCEPT AD EVENT LISTENERS ==========

@@ -19,6 +19,14 @@ chrome.runtime.onInstalled.addListener(async (details) => {
   } else if (details.reason === 'update') {
     console.log('[AdBlocker] Extension updated to version', chrome.runtime.getManifest().version);
   }
+
+  // Set the uninstall feedback URL (must be http: or https: — mailto: is not supported)
+  // Using a Google Forms link for feedback collection
+  try {
+    chrome.runtime.setUninstallURL('https://docs.google.com/forms/d/e/your-form-id/viewform?usp=pp_url&entry.1=%5BUninstall+Feedback%5D+Amazon+MiniTV+%26+MX+Player+Ad+Blocker');
+  } catch (e) {
+    console.log('[AdBlocker] Could not set uninstall URL:', e.message);
+  }
 });
 
 // Track blocked requests using declarativeNetRequest feedback
@@ -30,12 +38,6 @@ chrome.declarativeNetRequest.onRuleMatchedDebug?.addListener(async (info) => {
       sessionBlocked: (data.sessionBlocked || 0) + 1,
       lastUpdated: Date.now()
     });
-
-    // Update badge with count
-    const count = (data.sessionBlocked || 0) + 1;
-    const badgeText = count > 999 ? '999+' : count.toString();
-    chrome.action.setBadgeText({ text: badgeText });
-    chrome.action.setBadgeBackgroundColor({ color: '#e74c3c' });
   } catch (e) {
     // Silently handle - onRuleMatchedDebug may not be available in production
   }
@@ -109,11 +111,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         sessionBlocked: (data.sessionBlocked || 0) + count,
         lastUpdated: Date.now()
       });
-
-      const sessionCount = (data.sessionBlocked || 0) + count;
-      const badgeText = sessionCount > 999 ? '999+' : sessionCount.toString();
-      chrome.action.setBadgeText({ text: badgeText, tabId: sender.tab?.id });
-      chrome.action.setBadgeBackgroundColor({ color: '#e74c3c', tabId: sender.tab?.id });
     });
     return true;
   }

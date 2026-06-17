@@ -5,6 +5,7 @@
     "action": { "type": "block" },
     "condition": {
       "urlFilter": "||doubleclick.net",
+      "excludedInitiatorDomains": ["mxplayer.in", "amazonmxplayer.in", "amazonmxplayer.com"],
       "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image", "media", "other"]
     }
   },
@@ -14,6 +15,7 @@
     "action": { "type": "block" },
     "condition": {
       "urlFilter": "||googlesyndication.com",
+      "excludedInitiatorDomains": ["mxplayer.in", "amazonmxplayer.in", "amazonmxplayer.com"],
       "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image", "media", "other"]
     }
   },
@@ -23,6 +25,7 @@
     "action": { "type": "block" },
     "condition": {
       "urlFilter": "||googleadservices.com",
+      "excludedInitiatorDomains": ["mxplayer.in", "amazonmxplayer.in", "amazonmxplayer.com"],
       "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image", "media", "other"]
     }
   },
@@ -41,6 +44,7 @@
     "action": { "type": "block" },
     "condition": {
       "urlFilter": "||adservice.google.com",
+      "excludedInitiatorDomains": ["mxplayer.in", "amazonmxplayer.in", "amazonmxplayer.com"],
       "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image", "media", "other"]
     }
   },
@@ -50,6 +54,7 @@
     "action": { "type": "block" },
     "condition": {
       "urlFilter": "||amazon-adsystem.com",
+      "excludedInitiatorDomains": ["mxplayer.in", "amazonmxplayer.in", "amazonmxplayer.com"],
       "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image", "media", "other"]
     }
   },
@@ -113,6 +118,7 @@
     "action": { "type": "block" },
     "condition": {
       "urlFilter": "||imasdk.googleapis.com",
+      "excludedInitiatorDomains": ["mxplayer.in", "amazonmxplayer.in", "amazonmxplayer.com"],
       "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image", "media", "other"]
     }
   },
@@ -122,6 +128,7 @@
     "action": { "type": "block" },
     "condition": {
       "urlFilter": "||ima3.google.com",
+      "excludedInitiatorDomains": ["mxplayer.in", "amazonmxplayer.in", "amazonmxplayer.com"],
       "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image", "media", "other"]
     }
   },
@@ -131,7 +138,7 @@
     "action": { "type": "block" },
     "condition": {
       "urlFilter": "*vast*tag*",
-      "initiatorDomains": ["mxplayer.in", "amazon.in", "amazonmxplayer.in", "amazonmxplayer.com"],
+      "initiatorDomains": ["amazon.in"],
       "resourceTypes": ["xmlhttprequest", "script", "other"]
     }
   },
@@ -141,7 +148,7 @@
     "action": { "type": "block" },
     "condition": {
       "urlFilter": "*vpaid*",
-      "initiatorDomains": ["mxplayer.in", "amazon.in", "amazonmxplayer.in", "amazonmxplayer.com"],
+      "initiatorDomains": ["amazon.in"],
       "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "other"]
     }
   },
@@ -278,7 +285,7 @@
     "action": { "type": "block" },
     "condition": {
       "urlFilter": "*prebid*",
-      "initiatorDomains": ["mxplayer.in", "amazon.in", "amazonmxplayer.in", "amazonmxplayer.com"],
+      "initiatorDomains": ["amazon.in"],
       "resourceTypes": ["script", "xmlhttprequest", "other"]
     }
   },
@@ -315,7 +322,7 @@
     "action": { "type": "block" },
     "condition": {
       "urlFilter": "*&adType=*",
-      "initiatorDomains": ["mxplayer.in", "amazon.in", "amazonmxplayer.in", "amazonmxplayer.com"],
+      "initiatorDomains": ["amazon.in"],
       "resourceTypes": ["xmlhttprequest", "script", "media", "other"]
     }
   },
@@ -325,7 +332,7 @@
     "action": { "type": "block" },
     "condition": {
       "urlFilter": "*ad_request*",
-      "initiatorDomains": ["mxplayer.in", "amazon.in", "amazonmxplayer.in", "amazonmxplayer.com"],
+      "initiatorDomains": ["amazon.in"],
       "resourceTypes": ["xmlhttprequest", "script", "other"]
     }
   },
@@ -335,7 +342,7 @@
     "action": { "type": "block" },
     "condition": {
       "urlFilter": "*adserver*",
-      "initiatorDomains": ["mxplayer.in", "amazon.in", "amazonmxplayer.in", "amazonmxplayer.com"],
+      "initiatorDomains": ["amazon.in"],
       "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image", "media", "other"]
     }
   },
@@ -345,6 +352,7 @@
     "action": { "type": "block" },
     "condition": {
       "urlFilter": "||ad.doubleclick.net",
+      "excludedInitiatorDomains": ["mxplayer.in", "amazonmxplayer.in", "amazonmxplayer.com"],
       "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image", "media", "other"]
     }
   },
@@ -354,6 +362,7 @@
     "action": { "type": "block" },
     "condition": {
       "urlFilter": "||pagead2.googlesyndication.com",
+      "excludedInitiatorDomains": ["mxplayer.in", "amazonmxplayer.in", "amazonmxplayer.com"],
       "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image", "media", "other"]
     }
   },
@@ -363,7 +372,7 @@
     "action": { "type": "block" },
     "condition": {
       "urlFilter": "*googleads*",
-      "initiatorDomains": ["mxplayer.in", "amazon.in", "amazonmxplayer.in", "amazonmxplayer.com"],
+      "initiatorDomains": ["amazon.in"],
       "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image", "media", "other"]
     }
   },
@@ -381,8 +390,8 @@
     "priority": 1,
     "action": { "type": "block" },
     "condition": {
-      "urlFilter": "*ssai*",
-      "initiatorDomains": ["mxplayer.in", "amazonmxplayer.in", "amazonmxplayer.com"],
+      "urlFilter": "*ssai*ad*",
+      "initiatorDomains": ["amazon.in"],
       "resourceTypes": ["xmlhttprequest", "media", "other"]
     }
   },
@@ -428,7 +437,7 @@
     "action": { "type": "block" },
     "condition": {
       "urlFilter": "*companion*ad*",
-      "initiatorDomains": ["mxplayer.in", "amazon.in", "amazonmxplayer.in", "amazonmxplayer.com"],
+      "initiatorDomains": ["amazon.in"],
       "resourceTypes": ["xmlhttprequest", "script", "image", "other"]
     }
   },
@@ -456,6 +465,7 @@
     "action": { "type": "block" },
     "condition": {
       "urlFilter": "||s.amazon-adsystem.com",
+      "excludedInitiatorDomains": ["mxplayer.in", "amazonmxplayer.in", "amazonmxplayer.com"],
       "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image", "media", "other"]
     }
   }

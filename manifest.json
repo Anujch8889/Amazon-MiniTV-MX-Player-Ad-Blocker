@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Amazon MiniTV & MX Player Ad Blocker",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Automatically blocks all ads on Amazon MiniTV and MX Player websites. Install once and enjoy ad-free streaming!",
   "permissions": [
     "declarativeNetRequest",
@@ -39,13 +39,21 @@
       "matches": [
         "*://*.amazon.in/*minitv*",
         "*://*.amazon.in/gp/video/*",
-        "*://*.amazon.in/Amazon-miniTV/*",
+        "*://*.amazon.in/Amazon-miniTV/*"
+      ],
+      "js": ["content/content.js"],
+      "css": ["content/content.css"],
+      "run_at": "document_start",
+      "all_frames": true
+    },
+    {
+      "matches": [
         "*://*.mxplayer.in/*",
         "*://*.amazonmxplayer.in/*",
         "*://*.amazonmxplayer.com/*"
       ],
       "js": ["content/content.js"],
-      "css": ["content/content.css"],
+      "css": ["content/content-mx.css"],
       "run_at": "document_start",
       "all_frames": true
     }
